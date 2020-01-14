@@ -1,5 +1,6 @@
 <template>
     <section class='calendar'>
+        <slot></slot>
         <vue-cal
             :disable-views="disableViews"
             :time-from="timeFrom"
@@ -7,16 +8,15 @@
             :time-cell-height="timeCellHeight"
             :events="events"
             :selected-date="selectedDate"
-            hide-weekends
             small
-            today-buton>
+            today-button>
             <template v-slot:today-button>
                 <b-tooltip 
                     label="Today"
                     type="is-dark"
                     position="is-bottom">
                     <button class="button">
-                        <b-icon icon="location" size="is-small"></b-icon>
+                        <b-icon icon="crosshairs"></b-icon>
                     </button>
                 </b-tooltip>
             </template>
@@ -32,10 +32,11 @@ export default {
     name: 'Calendar',
     data () {
         return {
+            windowWidth: window.innerWidth,
             disableViews: ['years', 'year', 'month', 'day', 'week'],
             timeFrom: 8 * 60,
             timeTo: 18 * 60,
-            timeCellHeight: 100,
+            /* timeCellHeight: 100, */
             selectedDate: new Date(),
             holidays: ['2020-02-17',
                        '2020-02-18',
@@ -44,22 +45,22 @@ export default {
                        '2020-02-21'],
             events: [].concat(
                 //Mondays
-                this.recurEvent('2020-01-13', '2020-04-09', '09:00', '10:00', 'week', 'CHY103 - Lec A', '<i class="icon fas fa-flask"></i>', 'chem-uni'),
                 this.recurEvent('2020-01-13', '2020-04-09', '11:00', '13:00', 'week', 'HST701 - Lec A', '<i class="icon fas fa-landmark"></i>', 'hist-uni'),
                 this.recurEvent('2020-01-13', '2020-04-09', '14:00', '16:00', 'week', 'CPS616 - Lec A', '<i class="icon fas fa-code"></i>', 'algo-uni'),
                 //Tuesdays
-                this.recurEvent('2020-01-14', '2020-04-09', '09:00', '10:00', 'week', 'HST701- Lec B', '<i class="icon fas fa-landmark"></i>', 'hist-uni'),
-                this.recurEvent('2020-01-14', '2020-04-09', '13:00', '14:00', 'week', 'CPS616- Lab', '<i class="icon fas fa-code"></i>', 'algo-uni'),
-                this.recurEvent('2020-01-14', '2020-04-09', '17:00', '18:00', 'week', 'CPS616- Lec B', '<i class="icon fas fa-code"></i>', 'algo-uni'),
+                this.recurEvent('2020-01-14', '2020-04-09', '09:00', '10:00', 'week', 'HST701 - Lec B', '<i class="icon fas fa-landmark"></i>', 'hist-uni'),
+                this.recurEvent('2020-01-14', '2020-04-09', '10:00', '11:00', 'week', 'ACC100 - Lec A', '<i class="icon fas fa-chart-line"></i>', 'acct-uni'),
+                this.recurEvent('2020-01-14', '2020-04-09', '12:00', '13:00', 'week', 'CPS706 - Lab', '<i class="icon fas fa-server"></i>', 'ntwk-uni'),
+                this.recurEvent('2020-01-14', '2020-04-09', '17:00', '18:00', 'week', 'CPS616 - Lec B', '<i class="icon fas fa-code"></i>', 'algo-uni'),
                 //Wednesdays
-                this.recurEvent('2020-01-15', '2020-04-09', '08:00', '09:00', 'week', 'CPS706 - Lec A', '<i class="icon fas fa-server"></i>', 'ntwk-uni'),
-                this.recurEvent('2020-01-15', '2020-04-09', '14:00', '15:00', 'week', 'CPS706 - Lab', '<i class="icon fas fa-server"></i>', 'ntwk-uni'),
+                this.recurEvent('2020-01-15', '2020-04-09', '08:00', '09:00', 'week', 'CPS706 - Lec A', '<i class="icon fas fa-server"></i>', 'algo-uni'),
+                this.recurEvent('2020-01-15', '2020-04-09', '11:00', '12:00', 'week', 'MTH310 - Lab', '<i class="icon fas fa-square-root-alt"></i>', 'calc-uni'),
+                this.recurEvent('2020-01-15', '2020-04-09', '14:00', '15:00', 'week', 'CPS616 - Lab', '<i class="icon fas fa-code"></i>', 'algo-uni'),
                 //Thursdays
-                this.recurEvent('2020-01-16', '2020-04-09', '08:00', '10:00', 'week', 'CHY103 - Lec B', '<i class="icon fas fa-flask"></i>', 'chem-uni'),
                 this.recurEvent('2020-01-16', '2020-04-09', '10:00', '12:00', 'week', 'MTH310 - Lec A', '<i class="icon fas fa-square-root-alt"></i>', 'calc-uni'),
+                this.recurEvent('2020-01-16', '2020-04-09', '12:00', '14:00', 'week', 'ACC100 - Lec B', '<i class="icon fas fa-chart-line"></i>', 'acct-uni'),
                 this.recurEvent('2020-01-16', '2020-04-09', '14:00', '16:00', 'week', 'CPS706 - Lec B', '<i class="icon fas fa-server"></i>', 'ntwk-uni'),
                 //Fridays
-                this.recurEvent('2020-01-17', '2020-04-09', '12:00', '13:00', 'week', 'MTH310 - Lab', '<i class="icon fas fa-square-root-alt"></i>', 'calc-uni'),
                 this.recurEvent('2020-01-17', '2020-04-09', '14:00', '16:00', 'week', 'MTH310 - Lec B', '<i class="icon fas fa-square-root-alt"></i>', 'calc-uni'),
                 )
         }
@@ -77,9 +78,7 @@ export default {
     },
     methods: {
         getWindowWidth() {
-            window.innerWidth < 768
-                ? this.timeCellHeight = 50
-                : this.timeCellHeight = 100
+            this.windowWidth = window.innerWidth
         },
         /**
          * Start and End should follow the following format: YYYY-MM-DD
@@ -116,7 +115,7 @@ export default {
                 throw new Error('End date must succeed start date.')
 
             let fromParts = from.split(":")
-            let toParts = to.split(":")
+            let toParts = to.split(":") 
             let fromHour = parseInt(fromParts[0])
             let toHour = parseInt(toParts[0])
             let fromMin = parseInt(fromParts[1])
@@ -151,16 +150,25 @@ export default {
         }
     },
     computed: {
+        timeCellHeight() {
+            return this.windowWidth < 768
+                    ? 50
+                    : 100
+        }
     }
 }
 </script>
 
 <style scoped>
+    .calendar {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
     .calendar > .vuecal {
         margin-left: auto;
         margin-right: auto;
     }
-    .calendar ::v-deep .chem-uni {
+    .calendar ::v-deep .acct-uni {
         background-color: hsla(0, 100%, 70%, .85);
         border: 1px solid #eb5252;
         color: #fff;

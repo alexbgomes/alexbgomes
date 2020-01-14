@@ -9,13 +9,11 @@
             </div>
         </section>
         <carousel/>
-        <calendar/>
     </main>
 </template>
 
 <script>
 import Carousel from './Carousel'
-import Calendar from './Calendar'
 
 export default {
     data() {
@@ -24,12 +22,14 @@ export default {
         }
     },
     components: {
-        Carousel,
-        Calendar
+        Carousel
     }
 }
 </script>
 
 <style scoped>
-
+    .home ::v-deep .hero-body {
+        padding-top: 0rem;
+        padding-bottom: 1rem;
+    }
 </style>

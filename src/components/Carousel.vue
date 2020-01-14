@@ -23,7 +23,27 @@
                 <section :class="`hero is-medium is-${carousel.color} is-bold`">
                     <div class="hero-body has-text-centered">
                         <h1 class="title">{{carousel.title}}</h1>
-                        <p v-if="carousel.content !== undefined" v-html="carousel.content"></p>
+                        <div v-if="carousel.routerLink !== undefined" class="slide-container">
+                            <b-tooltip 
+                                :label="carousel.linkTooltip"
+                                position="is-bottom">
+                                <router-link :to="carousel.routerLink" tag="div" class="slide-link slide-container">
+                                    <p v-if="carousel.content !== undefined" v-html="carousel.content"></p>
+                                </router-link>
+                            </b-tooltip>
+                        </div>
+                        <div v-else-if="carousel.link !== undefined" class="slide-container">
+                        <b-tooltip 
+                            :label="carousel.linkTooltip"
+                            position="is-bottom">
+                            <a :href="carousel.link" class="slide-link">
+                                <p v-if="carousel.content !== undefined" v-html="carousel.content"></p>
+                            </a>
+                        </b-tooltip>
+                        </div>
+                        <div v-else class="slide-container">
+                            <p v-if="carousel.content !== undefined" v-html="carousel.content"></p>
+                        </div>
                     </div>
                 </section>
             </b-carousel-item>
@@ -56,11 +76,16 @@ export default {
             interval: 3000,
             carousels: [{
                     title: 'Looking for Summer 2020 Positions!',
-                    content: 'Need a passionate 3rd year Computer Science mind with an insatiable curiousity for knowledge, an aptitude for quality work, and a team player?<br>Contact me!',
+                    content: 'Passionate 3rd year Computer Science student, dedicated team player and leader.<br>Contact Me!',
+                    routerLink: '/contact',
+                    linkTooltip: 'Find out how',
                     color: 'dark'
                 }, {
-                    title: 'Slide 2',
-                    color: 'primary'
+                    title: 'Test External Link',
+                    color: 'primary',
+                    content: 'Best Search Engine',
+                    link: 'http://www.google.ca/',
+                    linkTooltip: 'Google',
                 }, {
                     title: 'Slide 3',
                     color: 'info'
@@ -80,3 +105,17 @@ export default {
 </script>
 
 <style scoped>
+    .carousel ::v-deep .slide-container {
+        height: 8.5rem;
+    }
+
+    .carousel ::v-deep .slide-link {
+        cursor: pointer;
+        display: inline-block;
+        height: fit-content;
+    }
+
+    .carousel ::v-deep .hero-body > .title {
+        padding-top: 1rem;
+    }
+</style>

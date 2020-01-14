@@ -1,14 +1,17 @@
 <template>
   <div id="app">
+    <nav-bar></nav-bar>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import NavBar from './components/NavBar'
 
 export default {
   name: 'app',
   components: {
+    NavBar
   }
 }
 </script>
@@ -21,6 +24,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   /* margin-top: 60px; */
-  height: 3000px;
+  /* height: 3000px; */
+}
+html {
+  overflow-y: auto !important; /* Buefy hierarchy applies overflow-y: scroll, leaving empty scrollbar, may check later if this line can be removed. */
 }
 </style>
