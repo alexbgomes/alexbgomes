@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 importScripts(
-  "/alexbgomes/cps530-website/precache-manifest.402d8c958d7b117d1bb6cfc73f6fd96e.js"
+  "/cps530-website/precache-manifest.402d8c958d7b117d1bb6cfc73f6fd96e.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/alexbgomes/cps530-website/index.html", {
+workbox.routing.registerNavigationRoute("/cps530-website/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
