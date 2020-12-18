@@ -1,4 +1,4 @@
-# alexgomes
+# alexbgomes
 
 ## Project setup
 ```

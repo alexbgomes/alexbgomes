@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <nav-bar></nav-bar>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import NavBar from './components/layout/NavBar'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    NavBar
   }
 }
 </script>
@@ -23,6 +23,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  /* margin-top: 60px; */
+  /* height: 3000px; */
+}
+html {
+  overflow-y: auto !important; /* Buefy hierarchy applies overflow-y: scroll, leaving empty scrollbar, may check later if this line can be removed. */
 }
 </style>
