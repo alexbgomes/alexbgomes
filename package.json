@@ -2,11 +2,12 @@
   "name": "alexgomes",
   "version": "0.1.0",
   "private": true,
+  "homepage" : "http://alexbgomes.github.io/alexbgomes",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "node scripts/gh-pages-deploy.js"
+    "deploy": "node scripts/deploy-gh-pages.js"
   },
   "dependencies": {
     "buefy": "^0.8.20",
