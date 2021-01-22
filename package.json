@@ -1,13 +1,13 @@
 {
   "name": "alexgomes",
+  "homepage": "https://alexbgomes.com/",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "http://alexbgomes.github.io/alexbgomes",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "node scripts/deploy-gh-pages.js"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "buefy": "^0.8.20",
@@ -24,6 +24,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "execa": "latest",
+    "gh-pages": "^3.1.0",
     "vue-template-compiler": "^2.6.12"
   },
   "eslintConfig": {
@@ -35,7 +36,9 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "no-console": "off"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }

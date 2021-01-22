@@ -30,7 +30,10 @@ const routes = [{
         component: NotFound
     }]
 
+export const route_data = routes;
+
 export default new VueRouter({
+    base: process.env.BASE_URL,
     mode: 'history',
     routes
 })

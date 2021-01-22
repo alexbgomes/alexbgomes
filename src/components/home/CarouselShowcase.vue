@@ -52,6 +52,8 @@
 </template>
 
 <script>
+import { route_data } from '../../router';
+
 export default {
     name: 'Carousel',
     data() {
@@ -75,15 +77,15 @@ export default {
             pauseText: 'Paused',
             interval: 3000,
             carousels: [{
-                    title: 'Looking for Summer 2020 Positions!',
-                    content: 'Passionate 3rd year Computer Science student, dedicated team player and leader.<br>Contact Me!',
-                    routerLink: '/contact',
+                    title: 'Looking for New Grad Positions!',
+                    content: 'Passionate 4th year Computer Science student, dedicated team player and leader.<br>Contact Me!',
+                    routerLink: route_data[2].path,
                     linkTooltip: 'Find out how',
                     color: 'dark'
                 }, {
                     title: 'Test External Link',
                     color: 'primary',
-                    content: 'Best Search Engine',
+                    content: 'Google',
                     link: 'http://www.google.ca/',
                     linkTooltip: 'Google',
                 }, {

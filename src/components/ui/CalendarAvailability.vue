@@ -39,30 +39,9 @@ export default {
             timeTo: 18 * 60,
             /* timeCellHeight: 100, */
             selectedDate: new Date(),
-            holidays: ['2020-02-17',
-                       '2020-02-18',
-                       '2020-02-19',
-                       '2020-02-20',
-                       '2020-02-21'],
+            holidays: [],
             events: [].concat(
-                //Mondays
-                this.recurEvent('2020-01-13', '2020-04-09', '11:00', '13:00', 'week', 'HST701 - Lec A', '<i class="icon fas fa-landmark"></i>', 'hist-uni'),
-                this.recurEvent('2020-01-13', '2020-04-09', '14:00', '16:00', 'week', 'CPS616 - Lec A', '<i class="icon fas fa-code"></i>', 'algo-uni'),
-                //Tuesdays
-                this.recurEvent('2020-01-14', '2020-04-09', '09:00', '10:00', 'week', 'HST701 - Lec B', '<i class="icon fas fa-landmark"></i>', 'hist-uni'),
-                this.recurEvent('2020-01-14', '2020-04-09', '10:00', '11:00', 'week', 'ACC100 - Lec A', '<i class="icon fas fa-chart-line"></i>', 'acct-uni'),
-                this.recurEvent('2020-01-14', '2020-04-09', '12:00', '13:00', 'week', 'CPS706 - Lab', '<i class="icon fas fa-server"></i>', 'ntwk-uni'),
-                this.recurEvent('2020-01-14', '2020-04-09', '17:00', '18:00', 'week', 'CPS616 - Lec B', '<i class="icon fas fa-code"></i>', 'algo-uni'),
-                //Wednesdays
-                this.recurEvent('2020-01-15', '2020-04-09', '08:00', '09:00', 'week', 'CPS706 - Lec A', '<i class="icon fas fa-server"></i>', 'algo-uni'),
-                this.recurEvent('2020-01-15', '2020-04-09', '11:00', '12:00', 'week', 'MTH310 - Lab', '<i class="icon fas fa-square-root-alt"></i>', 'calc-uni'),
-                this.recurEvent('2020-01-15', '2020-04-09', '14:00', '15:00', 'week', 'CPS616 - Lab', '<i class="icon fas fa-code"></i>', 'algo-uni'),
-                //Thursdays
-                this.recurEvent('2020-01-16', '2020-04-09', '10:00', '12:00', 'week', 'MTH310 - Lec A', '<i class="icon fas fa-square-root-alt"></i>', 'calc-uni'),
-                this.recurEvent('2020-01-16', '2020-04-09', '12:00', '14:00', 'week', 'ACC100 - Lec B', '<i class="icon fas fa-chart-line"></i>', 'acct-uni'),
-                this.recurEvent('2020-01-16', '2020-04-09', '14:00', '16:00', 'week', 'CPS706 - Lec B', '<i class="icon fas fa-server"></i>', 'ntwk-uni'),
-                //Fridays
-                this.recurEvent('2020-01-17', '2020-04-09', '14:00', '16:00', 'week', 'MTH310 - Lec B', '<i class="icon fas fa-square-root-alt"></i>', 'calc-uni'),
+                this.recurEvent('2021-01-11', '2021-08-31', '09:00', '17:00', 'weekday', 'Work', '<i class="icon fas fa-briefcase"></i>', 'work'),
                 )
         }
     },
@@ -135,7 +114,12 @@ export default {
 
                 if (every === 'day')
                     cur.setDate(cur.getDate() + 1)
-                else if (every === 'week')
+                else if (every === 'weekday') {
+                    if (cur.getDay() === 5)
+                        cur.setDate(cur.getDate() + 3)
+                    else
+                        cur.setDate(cur.getDate() + 1)
+                } else if (every === 'week')
                     cur.setDate(cur.getDate() + 7)
                 else if (every === 'month')
                     cur.setMonth(cur.getMonth() + 1)
@@ -169,30 +153,10 @@ export default {
         margin-left: auto;
         margin-right: auto;
     }
-    .calendar ::v-deep .acct-uni {
-        background-color: hsla(0, 100%, 70%, .85);
-        border: 1px solid #eb5252;
-        color: #fff;
-    }
-    .calendar ::v-deep .hist-uni {
-        background-color: hsla(72, 80%, 50%, .85);
-        border: 1px solid #bde619;
-        color: #444;
-    }
-    .calendar ::v-deep .algo-uni {
+    .calendar ::v-deep .work {
         background-color: hsla(214, 85%, 50%, .85);
         border: 1px solid #1371ec;
         color: #fff;
-    }
-    .calendar ::v-deep .ntwk-uni {
-        background-color: hsla(276, 85%, 75%, .85);
-        border: 1px solid #ca89f5;
-        color: #444;
-    }
-    .calendar ::v-deep .calc-uni {
-        background-color: hsla(58, 85%, 60%, .85);
-        border: 1px solid #f0ea42;
-        color: #444;
     }
 
     @media (max-width: 426px) {

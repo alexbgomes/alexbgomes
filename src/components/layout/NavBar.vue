@@ -6,7 +6,7 @@
             <b-navbar-item tag="div">
                 <div class="buttons">
                     <b-button tag="router-link"
-                        to="/home"
+                        :to="homePage"
                         type="is-link">
                         <p v-if="homeText">Home</p>
                         <b-icon v-else icon="home"></b-icon>
@@ -18,7 +18,7 @@
             <b-navbar-item tag="div">
                 <div class="buttons">
                     <b-button tag="router-link"
-                        to="/contact"
+                        :to="contactsPage"
                         type="is-link">
                         <p>Contact Me</p>
                     </b-button>
@@ -29,11 +29,13 @@
 </template>
 
 <script>
+import { route_data } from '../../router';
+
 export default {
     name: 'NavBar',
     data () {
         return {
-            windowWidth: window.innerWidth
+            windowWidth: window.innerWidth,
         }
     },
     mounted() {
@@ -52,6 +54,12 @@ export default {
     computed: {
         homeText() {
             return this.windowWidth < 1024
+        },
+        homePage() {
+            return route_data[1].path
+        },
+        contactsPage() {
+            return route_data[2].path
         }
     }
 }
