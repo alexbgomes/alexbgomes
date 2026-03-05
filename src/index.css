@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background: #0e0b0a;
+  color: #e8d8b0;
+  font-family: serif;
+}
+
+.panel {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  width: 400px;
+  padding: 20px;
+  background: rgba(30, 20, 10, 0.85);
+  border: 2px solid #7a5c2e;
+}
