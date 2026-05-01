@@ -302,6 +302,7 @@ export const skillTrees: SkillTreeTab[] = [
           },
           {
             id: 'anime',
+            special: 'bankai',
             label: 'Anime',
             description: 'Appreciator of all anime. <grey-note>私の日本語は下手です</grey-note>\n\nPassive Buff: +10 Happiness when watching anime. \n\nFavourites: Bleach, Dragon Ball Z, Full Metal Alchemist: Brotherhood.',
             icon: '/icons/crunchyroll.png',

@@ -2,6 +2,7 @@ export type SkillNodeType = 'root' | 'category' | 'skill' | 'keystone'
 
 export interface SkillNode {
   id: string
+  special?: string | null // custom html tag for special effects
   label: string
   description: string
   icon: string // can be emoji or path to icon

@@ -1,0 +1,355 @@
+/*
+ * Senbonzakura Kageyoshi - Bankai Animation (12s loop)
+ *
+ *   0-2.5s    Sword falls blade-down, fades
+ *   2.5-4s    Pillars rise in V-formation (front-to-back depth)
+ *   4-5.5s    Pillars hold, glow, fade to white
+ *   5.5-7s    White pillars burst apart into cherry blossom petals
+ *   7-11s     Dense petal ring swirls outward toward viewer
+ *   11-12s    Fade out
+ */
+
+#bankai {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: inherit;
+}
+
+/* -- Falling sword (blade pointing down) -- */
+
+.bankai-sword {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 6px;
+  height: 55%;
+  transform: translateX(-50%) translateY(-110%);
+  opacity: 0;
+  animation: sword-fall 12s ease-in infinite;
+}
+
+.bankai-handle {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 18%;
+  background: linear-gradient(to bottom, #3d2b1f, #5c3a21);
+  border-radius: 1px;
+}
+
+.bankai-guard {
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 3px;
+  background: #b8860b;
+  border-radius: 1px;
+  box-shadow: 0 0 4px rgba(184, 134, 11, 0.6);
+}
+
+.bankai-blade {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  width: 2px;
+  height: 80%;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(220, 220, 240, 0.9) 40%,
+    rgba(200, 200, 220, 0.7) 85%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 6px rgba(200, 200, 255, 0.5),
+    0 0 12px rgba(200, 200, 255, 0.3);
+}
+
+@keyframes sword-fall {
+  0% {
+    transform: translateX(-50%) translateY(-110%);
+    opacity: 0;
+  }
+  3% { opacity: 1; }
+  14% {
+    transform: translateX(-50%) translateY(55%);
+    opacity: 1;
+  }
+  17% {
+    transform: translateX(-50%) translateY(75%);
+    opacity: 0.4;
+  }
+  21% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* -- Ground flash on impact -- */
+
+.bankai-ground-flash {
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  width: 140%;
+  height: 2px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 183, 197, 0.6) 30%,
+    rgba(255, 150, 200, 0.3) 60%,
+    transparent 80%
+  );
+  opacity: 0;
+  animation: ground-flash 12s ease-out infinite;
+}
+
+@keyframes ground-flash {
+  0%, 13% { opacity: 0; }
+  15% { opacity: 1; }
+  20% { opacity: 0.5; }
+  28% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/*
+ * -- Pillar swords in V-formation --
+ *
+ * Two rows stretching front (bottom, far apart) to back (top, center).
+ * Gap in the middle. Pillars fade to white then burst apart (no shrink).
+ */
+
+.bankai-pillars {
+  position: absolute;
+  inset: 0;
+}
+
+.bankai-pillar {
+  position: absolute;
+  width: 1.5px;
+  transform-origin: center bottom;
+  opacity: 0;
+  animation: pillar-rise 12s ease-out infinite;
+}
+
+/* Left V-row (children 1-5): front → back */
+.bankai-pillar:nth-child(1)  { left: 8%;  bottom: 5%;  height: 72%; animation-delay: 0.00s; }
+.bankai-pillar:nth-child(2)  { left: 16%; bottom: 16%; height: 58%; animation-delay: 0.06s; }
+.bankai-pillar:nth-child(3)  { left: 24%; bottom: 27%; height: 44%; animation-delay: 0.12s; }
+.bankai-pillar:nth-child(4)  { left: 30%; bottom: 36%; height: 32%; animation-delay: 0.18s; }
+.bankai-pillar:nth-child(5)  { left: 36%; bottom: 43%; height: 22%; animation-delay: 0.24s; }
+
+/* Right V-row (children 6-10): front → back */
+.bankai-pillar:nth-child(6)  { right: 8%;  bottom: 5%;  height: 72%; animation-delay: 0.00s; }
+.bankai-pillar:nth-child(7)  { right: 16%; bottom: 16%; height: 58%; animation-delay: 0.06s; }
+.bankai-pillar:nth-child(8)  { right: 24%; bottom: 27%; height: 44%; animation-delay: 0.12s; }
+.bankai-pillar:nth-child(9)  { right: 30%; bottom: 36%; height: 32%; animation-delay: 0.18s; }
+.bankai-pillar:nth-child(10) { right: 36%; bottom: 43%; height: 22%; animation-delay: 0.24s; }
+
+@keyframes pillar-rise {
+  /* Hidden until sword is gone */
+  0%, 22% {
+    transform: scaleY(0);
+    opacity: 0;
+    background: linear-gradient(
+      to top,
+      transparent 0%,
+      rgba(200, 200, 230, 0.4) 20%,
+      rgba(220, 200, 240, 0.7) 60%,
+      rgba(255, 180, 220, 0.5) 90%,
+      transparent 100%
+    );
+    box-shadow:
+      0 0 4px rgba(255, 183, 197, 0.3),
+      0 0 8px rgba(200, 150, 255, 0.15);
+  }
+  /* Fully risen */
+  32% {
+    transform: scaleY(1);
+    opacity: 0.9;
+    background: linear-gradient(
+      to top,
+      transparent 0%,
+      rgba(200, 200, 230, 0.5) 20%,
+      rgba(220, 200, 240, 0.8) 60%,
+      rgba(255, 180, 220, 0.6) 90%,
+      transparent 100%
+    );
+    box-shadow:
+      0 0 6px rgba(255, 183, 197, 0.4),
+      0 0 12px rgba(200, 150, 255, 0.2);
+  }
+  /* Hold and glow */
+  40% {
+    transform: scaleY(1);
+    opacity: 1;
+    background: linear-gradient(
+      to top,
+      transparent 0%,
+      rgba(220, 210, 240, 0.6) 20%,
+      rgba(240, 220, 250, 0.9) 60%,
+      rgba(255, 200, 230, 0.7) 90%,
+      transparent 100%
+    );
+    box-shadow:
+      0 0 8px rgba(255, 200, 220, 0.5),
+      0 0 16px rgba(220, 180, 255, 0.3);
+  }
+  /* Fade to brilliant white — stays full height */
+  48% {
+    transform: scaleY(1);
+    opacity: 1;
+    background: linear-gradient(
+      to top,
+      transparent 0%,
+      rgba(255, 255, 255, 0.8) 15%,
+      rgba(255, 255, 255, 1) 50%,
+      rgba(255, 255, 255, 0.8) 85%,
+      transparent 100%
+    );
+    box-shadow:
+      0 0 14px rgba(255, 255, 255, 0.8),
+      0 0 28px rgba(255, 220, 240, 0.5);
+  }
+  /* Burst: stay full height, just fade out (petals take over) */
+  54% {
+    transform: scaleY(1);
+    opacity: 0;
+    background: linear-gradient(
+      to top,
+      transparent 0%,
+      rgba(255, 255, 255, 1) 50%,
+      transparent 100%
+    );
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+  }
+  100% { opacity: 0; }
+}
+
+/*
+ * -- Cherry blossom petals (dense circular swirl) --
+ *
+ * Orbit wrappers sit at center, each rotated to a starting angle.
+ * Petal animation spirals outward using rotate()+translateX(),
+ * reaching near the tooltip edges at the end.
+ */
+
+.bankai-petals {
+  position: absolute;
+  inset: 0;
+}
+
+.petal-orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+}
+
+.bankai-petal {
+  position: absolute;
+  width: var(--petal-size, 4px);
+  height: var(--petal-size, 4px);
+  border-radius: 50% 0 50% 0;
+  background: var(--petal-color, rgba(255, 183, 197, 0.85));
+  box-shadow: 0 0 3px var(--petal-glow, rgba(255, 150, 200, 0.4));
+  opacity: 0;
+  animation: petal-spiral var(--petal-duration, 12s) ease-in-out infinite;
+  animation-delay: var(--petal-delay, 0s);
+}
+
+@keyframes petal-spiral {
+  0%, 46% {
+    opacity: 0;
+    transform:
+      rotate(0deg)
+      translateX(var(--r-start, 8px))
+      scale(0.3);
+  }
+  /* Gather from pillar positions */
+  50% {
+    opacity: 0.9;
+    transform:
+      rotate(40deg)
+      translateX(var(--r-start, 8px))
+      scale(0.5);
+  }
+  /* Build the ring */
+  58% {
+    opacity: 0.9;
+    transform:
+      rotate(160deg)
+      translateX(var(--r-mid, 30px))
+      scale(0.8);
+  }
+  /* Swirling */
+  66% {
+    opacity: 0.85;
+    transform:
+      rotate(320deg)
+      translateX(var(--r-mid, 30px))
+      scale(1.1);
+  }
+  /* Expanding outward */
+  74% {
+    opacity: 0.8;
+    transform:
+      rotate(500deg)
+      translateX(var(--r-end, 70px))
+      scale(1.5);
+  }
+  /* Approaching tooltip edges */
+  82% {
+    opacity: 0.7;
+    transform:
+      rotate(680deg)
+      translateX(var(--r-far, 110px))
+      scale(1.9);
+  }
+  /* Near the outer edges */
+  89% {
+    opacity: 0.4;
+    transform:
+      rotate(860deg)
+      translateX(var(--r-far, 110px))
+      scale(2.3);
+  }
+  94% {
+    opacity: 0;
+    transform:
+      rotate(960deg)
+      translateX(var(--r-far, 110px))
+      scale(2.6);
+  }
+  100% { opacity: 0; }
+}
+
+/* -- Ambient pink glow during petal phase -- */
+
+.bankai-ambient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(255, 150, 200, 0.15) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  animation: ambient-glow 12s ease-in-out infinite;
+}
+
+@keyframes ambient-glow {
+  0%, 42% { opacity: 0; }
+  55% { opacity: 1; }
+  82% { opacity: 0.6; }
+  92% { opacity: 0; }
+  100% { opacity: 0; }
+}

@@ -13,6 +13,15 @@
     0 4px 24px rgba(0, 0, 0, 0.6),
     0 0 16px rgba(212, 165, 74, 0.12);
   animation: fade-in 0.12s ease-out;
+  overflow: hidden;
+}
+
+.skill-tooltip > h3,
+.skill-tooltip > .tooltip-type,
+.skill-tooltip > p,
+.skill-tooltip > img {
+  position: relative;
+  z-index: 1;
 }
 
 .skill-tooltip h3 {

@@ -2,6 +2,8 @@ import { useEffect, useRef } from 'react'
 
 import { useGameState } from '../state/useGameState'
 
+import Bankai from './Bankai'
+
 import './SkillTooltip.css'
 
 export default function SkillTooltip() {
@@ -164,6 +166,7 @@ export default function SkillTooltip() {
       }}
       role="tooltip"
     >
+      {hoveredSkill.special === 'bankai' && <Bankai />}
       <h3>{hoveredSkill.label}</h3>
       <span className="tooltip-type">{hoveredSkill.type}</span>
       <p dangerouslySetInnerHTML={{ __html: hoveredSkill.description }} />
