@@ -1,0 +1,362 @@
+/* --- HUD Overlay --- */
+
+.hud {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  animation: fade-in 0.6s ease-out;
+}
+
+.hud-mute-island {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  padding: 6px;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  pointer-events: auto;
+  /* Pointer-events auto or inherit is required to interact with HUD */
+}
+
+.hud-mute-island .hud-btn {
+  padding: 10px;
+}
+
+.bgm-btn {
+  padding: 8px;
+}
+
+.bgm-btn .hud-btn-img {
+  margin: 0;
+}
+
+.bgm-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mute-slash {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 3px;
+  background-color: #ff6b6b;
+  transform: translate(-50%, -50%) rotate(45deg);
+  border-radius: 2px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+}
+
+.hud-nameplate {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  padding: 14px 18px;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  pointer-events: auto;
+  /* Pointer-events auto or inherit is required to interact with HUD */
+}
+
+.hud-name {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+}
+
+.hud-class {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.hud-stats {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.hud-level {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  color: var(--gold-light);
+  background: rgba(212, 165, 74, 0.08);
+  padding: 3px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(212, 165, 74, 0.18);
+}
+
+.hud-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 12px;
+}
+
+.hud-bar-gap {
+  height: 8px;
+}
+
+.hud-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hud-bar-label {
+  font-family: var(--font-heading);
+  font-size: 0.62rem;
+  letter-spacing: 0.07em;
+  width: 28px;
+  text-align: left;
+  flex-shrink: 0;
+  color: var(--text-secondary);
+}
+
+.hud-bar-row--hp .hud-bar-label {
+  color: #ff6b6b;
+}
+
+.hud-bar-row--mp .hud-bar-label {
+  color: #6baeff;
+}
+
+.hud-bar-row--exp .hud-bar-label {
+  color: #6bffb8;
+}
+
+.hud-bar-track {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.hud-bar-fill {
+  position: relative;
+  height: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hud-bar-fill--hp {
+  background: linear-gradient(90deg, #a61c1c 0%, #ff6b6b 80%, #ff9b9b 100%);
+  box-shadow: 0 0 8px 2px rgba(255, 80, 80, 0.55),
+    0 0 20px 4px rgba(255, 80, 80, 0.25);
+}
+
+.hud-bar-fill--mp {
+  background: linear-gradient(90deg, #1a3a7a 0%, #4488ff 80%, #88bbff 100%);
+  box-shadow: 0 0 8px 2px rgba(70, 140, 255, 0.55),
+    0 0 20px 4px rgba(70, 140, 255, 0.25);
+}
+
+.hud-bar-fill--exp {
+  background: linear-gradient(90deg, #0d5c3a 0%, #2ecc71 80%, #7bffcb 100%);
+  box-shadow: 0 0 8px 2px rgba(46, 200, 113, 0.55),
+    0 0 20px 4px rgba(46, 200, 113, 0.25);
+}
+
+.hud-bar-shimmer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.22) 50%,
+      transparent 100%);
+  animation: bar-shimmer 2.4s linear infinite;
+}
+
+@keyframes bar-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(300%);
+  }
+}
+
+.hud-bar-particles {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(50%, -50%);
+  pointer-events: none;
+}
+
+.hud-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0;
+}
+
+.hud-bar-fill--hp .hud-particle {
+  background: #ffaaaa;
+  box-shadow: 0 0 4px 1px #ff6b6b;
+}
+
+.hud-bar-fill--mp .hud-particle {
+  background: #aaccff;
+  box-shadow: 0 0 4px 1px #6baeff;
+}
+
+.hud-bar-fill--exp .hud-particle {
+  background: #aaffdd;
+  box-shadow: 0 0 4px 1px #6bffb8;
+}
+
+.hud-particle:nth-child(1) {
+  animation: particle-float 1.6s ease-in-out -0.2s infinite;
+}
+
+.hud-particle:nth-child(2) {
+  animation: particle-float 1.6s ease-in-out -0.7s infinite;
+}
+
+.hud-particle:nth-child(3) {
+  animation: particle-float 1.6s ease-in-out -1.2s infinite;
+}
+
+@keyframes particle-float {
+  0% {
+    opacity: 0;
+    transform: translate(0px, 0px) scale(1);
+  }
+
+  20% {
+    opacity: 0.9;
+    transform: translate(-3px, -6px) scale(1.2);
+  }
+
+  60% {
+    opacity: 0.5;
+    transform: translate(2px, -12px) scale(0.8);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-1px, -18px) scale(0.5);
+  }
+}
+
+.hud-action-bar {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  padding: 10px 14px;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 14px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  pointer-events: auto;
+  /* Pointer-events auto or inherit is required to interact with HUD */
+}
+
+.hud-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 22px;
+  background: rgba(212, 165, 74, 0.06);
+  border: 1px solid rgba(212, 165, 74, 0.18);
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+}
+
+.hud-btn:hover {
+  background: rgba(212, 165, 74, 0.18);
+  border-color: var(--gold);
+  box-shadow: 0 0 18px rgba(212, 165, 74, 0.25);
+  transform: translateY(-2px);
+}
+
+.hud-btn:active {
+  transform: translateY(0);
+}
+
+.hud-btn-img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 2px;
+}
+
+#btn-contact {
+  cursor: url('/cursors/pointer.png') 24 12, pointer;
+}
+
+.hud-btn-icon {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.hud-btn-label {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+
+.hud-btn:hover .hud-btn-label {
+  color: var(--gold-light);
+}
+
+/* --- Responsive --- */
+
+@media (max-width: 600px) {
+  .hud-nameplate {
+    top: 12px;
+    left: 12px;
+    padding: 10px 14px;
+  }
+
+  .hud-mute-island {
+    top: 12px;
+    right: 12px;
+    padding: 4px;
+  }
+
+  .hud-name {
+    font-size: 1rem;
+  }
+
+  .hud-action-bar {
+    bottom: 16px;
+    padding: 8px 10px;
+    gap: 4px;
+  }
+
+  .hud-btn {
+    padding: 8px 14px;
+  }
+}

@@ -1,0 +1,193 @@
+/* --- Skill Tree Overlay --- */
+
+.skill-tree-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(ellipse at center, rgba(15, 12, 25, 0.96) 0%, rgba(5, 4, 10, 0.98) 100%);
+  animation: fade-in 0.3s ease-out;
+}
+
+.skill-tree-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+  padding: 20px 0 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.skill-tree-tab {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  cursor: url('/cursors/hand.png') 5 5, pointer;
+  padding: 8px 18px;
+  position: relative;
+  transition: color 0.25s ease;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skill-tree-tab:hover {
+  color: var(--gold-light);
+}
+
+.skill-tree-tab.active {
+  color: var(--gold);
+}
+
+.skill-tree-tab.active {
+  color: var(--gold);
+}
+
+.tab-underline-slider {
+  height: 2px;
+  background: var(--gold);
+  box-shadow: 0 0 12px rgba(212, 165, 74, 0.55);
+  border-radius: 1px;
+  transition: left 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  pointer-events: none;
+}
+
+.skill-tree-close {
+  position: absolute;
+  top: 16px;
+  right: 24px;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  cursor: url('/cursors/hand.png') 5 5, pointer;
+  padding: 6px 10px;
+  z-index: 10;
+  transition: color 0.2s, opacity 0.2s;
+  line-height: 1;
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.skill-tree-close:hover {
+  opacity: 1;
+  color: var(--gold);
+}
+
+.skill-tree-tab-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.panel-close-icon {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+}
+
+.skill-tree-canvas {
+  flex: 1;
+  cursor: url('/cursors/hand.png') 5 5, grab;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.skill-tree-canvas:active {
+  cursor: url('/cursors/move.png') 5 5, grabbing;
+}
+
+.skill-tree-canvas svg {
+  display: block;
+}
+
+.skill-node {
+  animation: scale-in 0.4s ease-out backwards;
+  cursor: url('/cursors/hand.png') 5 5, pointer;
+}
+
+.node-shape {
+  filter: drop-shadow(0 0 5px var(--node-color));
+  transition: filter 0.2s ease-out, transform 0.2s ease-out;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.skill-node:hover .node-shape {
+  filter: drop-shadow(0 0 16px var(--node-color));
+  transform: scale(1.05);
+}
+
+.node-aura {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+.skill-tree-stats {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  padding: 10px 0 16px;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+  position: relative;
+  z-index: 2;
+}
+
+.skill-tree-stats span {
+  color: var(--gold-light);
+}
+
+.skill-star {
+  animation: float-up-svg linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+}
+
+@keyframes float-up-svg {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.5;
+  }
+
+  90% {
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: translateY(-200px) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* --- Responsive --- */
+
+@media (max-width: 600px) {
+  .skill-tree-tabs {
+    gap: 16px;
+    padding: 12px 0 6px;
+  }
+
+  .skill-tree-tab {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+  }
+
+  .skill-tree-stats {
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    font-size: 0.72rem;
+  }
+}

@@ -1,0 +1,112 @@
+/* --- Loading Screen --- */
+
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--dark-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s ease-out;
+}
+
+.loading-screen,
+.loading-screen * {
+  cursor: url('/cursors/wait.png') 11 11, wait;
+}
+
+.loading-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loading-content {
+  text-align: center;
+  z-index: 1;
+}
+
+.loading-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 5vw, 3.2rem);
+  color: var(--gold);
+  letter-spacing: 0.3em;
+  text-shadow: 0 0 24px rgba(212, 165, 74, 0.45);
+  margin-bottom: 0.4rem;
+}
+
+.loading-subtitle {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.12em;
+  margin-bottom: 1.6rem;
+  animation: glow-pulse 2.5s ease-in-out infinite;
+}
+
+.loading-level {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--gold-light);
+  letter-spacing: 0.2em;
+  margin-bottom: 1.4rem;
+  text-shadow: 0 0 10px rgba(240, 208, 120, 0.35);
+}
+
+.loading-bar-container {
+  width: min(320px, 70vw);
+  height: 22px;
+  margin: 0 auto;
+  position: relative;
+  background: rgba(30, 25, 20, 0.8);
+  border: 2px solid var(--gold-dim);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.loading-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-dim), var(--gold), var(--gold-light));
+  border-radius: 2px;
+  box-shadow: 0 0 14px rgba(212, 165, 74, 0.55);
+}
+
+.loading-bar-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+}
+
+.loading-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  bottom: -8px;
+  width: 4px;
+  height: 4px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: float-up linear infinite;
+  box-shadow: 0 0 6px rgba(212, 165, 74, 0.8);
+}
+
+.loading-mobile-warning {
+  margin-top: 1.2rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: #ff6b6b;
+  text-shadow: 0 0 10px rgba(255, 107, 107, 0.8);
+  animation: glow-pulse 2s ease-in-out infinite;
+}
