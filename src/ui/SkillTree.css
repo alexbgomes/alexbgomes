@@ -97,6 +97,7 @@
   cursor: url('/cursors/hand.png') 5 5, grab;
   overflow: hidden;
   min-height: 0;
+  contain: layout style;
 }
 
 .skill-tree-canvas:active {
@@ -126,6 +127,7 @@
 
 .node-aura {
   animation: glow-pulse 3s ease-in-out infinite;
+  will-change: opacity;
 }
 
 .skill-tree-stats {

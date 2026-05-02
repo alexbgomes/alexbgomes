@@ -20,6 +20,7 @@ import './App.css'
  *  4. Loading screen (peels away)
  */
 export default function App() {
+  const view = useGameState((s) => s.view)
   const setIsMobile = useGameState((s) => s.setIsMobile)
 
   useEffect(() => {
@@ -35,6 +36,7 @@ export default function App() {
         <div className="scene-wrapper">
           <Canvas
             shadows
+            frameloop={view === 'skills' || view === 'about' ? 'never' : 'always'}
             camera={{ position: [0, 2, 6], fov: 60 }}
             style={{
               position: 'absolute',

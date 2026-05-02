@@ -2,7 +2,6 @@ import { useEffect, useRef, useState, useMemo } from 'react'
 import { useProgress } from '@react-three/drei'
 
 import { useGameState } from '../state/useGameState'
-import { getLevel } from '../data/levelSystem'
 
 import './LoadingScreen.css'
 
@@ -22,8 +21,6 @@ export default function LoadingScreen() {
   const minTimeDone = useRef(false)
   const assetsDone = useRef(false)
   const dismissing = useRef(false)
-
-  const level = getLevel()
 
   const particles = useMemo(
     () =>
