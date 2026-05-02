@@ -22,6 +22,8 @@ export default function SkillTree() {
   const [isDragging, setIsDragging] = useState(false)
   const [sliderStyle, setSliderStyle] = useState({ left: 0, width: 0, top: 0 })
   const dragStart = useRef({ x: 0, y: 0 })
+  const pointersRef = useRef<Map<number, { x: number; y: number }>>(new Map())
+  const initialPinch = useRef<{ dist: number; scale: number } | null>(null)
 
   const level = getLevel()
   const totalSP = getSkillPoints(skillTrees)
@@ -95,43 +97,70 @@ export default function SkillTree() {
   /* --- Drag handlers --- */
   const handlePointerDown = useCallback(
     (e: React.PointerEvent) => {
-      setIsDragging(true)
-      dragStart.current = { x: e.clientX - offset.x, y: e.clientY - offset.y }
-        ; (e.target as HTMLElement).setPointerCapture?.(e.pointerId)
+      pointersRef.current.set(e.pointerId, { x: e.clientX, y: e.clientY })
+      
+      if (pointersRef.current.size === 1) {
+        setIsDragging(true)
+        dragStart.current = { x: e.clientX - offset.x, y: e.clientY - offset.y }
+      } else if (pointersRef.current.size === 2) {
+        setIsDragging(false)
+        const pts = Array.from(pointersRef.current.values())
+        const dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y)
+        initialPinch.current = { dist, scale }
+      }
+      ;(e.target as HTMLElement).setPointerCapture?.(e.pointerId)
     },
-    [offset],
+    [offset, scale],
   )
 
   const handlePointerMove = useCallback(
     (e: React.PointerEvent) => {
-      if (!isDragging) return
+      if (!pointersRef.current.has(e.pointerId)) return
+      pointersRef.current.set(e.pointerId, { x: e.clientX, y: e.clientY })
 
-      const newX = e.clientX - dragStart.current.x
-      const newY = e.clientY - dragStart.current.y
+      if (pointersRef.current.size === 1 && isDragging) {
+        const newX = e.clientX - dragStart.current.x
+        const newY = e.clientY - dragStart.current.y
 
-      // Scale drag limits with zoom so the full canvas is reachable at any zoom level
-      const limitX = (dims.w / 2) * scale
-      const limitY = (dims.h / 2) * scale
+        // Preserve standard half-screen bounds but ensure it's at least large enough (800) to view the full content bounds
+        const limitX = Math.max(dims.w / 2, 800) * scale
+        const limitY = Math.max(dims.h / 2, 500) * scale
 
-      setOffset({
-        x: Math.max(-limitX, Math.min(limitX, newX)),
-        y: Math.max(-limitY, Math.min(limitY, newY)),
-      })
+        setOffset({
+          x: Math.max(-limitX, Math.min(limitX, newX)),
+          y: Math.max(-limitY, Math.min(limitY, newY)),
+        })
+      } else if (pointersRef.current.size === 2 && initialPinch.current) {
+        const pts = Array.from(pointersRef.current.values())
+        const dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y)
+        const scaleChange = dist / initialPinch.current.dist
+        const newScale = Math.max(0.3, Math.min(2.5, initialPinch.current.scale * scaleChange))
+        setScale(newScale)
+      }
     },
-    [isDragging, dims.w, dims.h, scale],
+    [isDragging, scale],
   )
 
-  const handlePointerUp = useCallback(() => {
-    setIsDragging(false)
-  }, [])
+  const handlePointerUp = useCallback((e: React.PointerEvent) => {
+    pointersRef.current.delete(e.pointerId)
+    if (pointersRef.current.size === 0) {
+      setIsDragging(false)
+      initialPinch.current = null
+    } else if (pointersRef.current.size === 1) {
+      const remaining = Array.from(pointersRef.current.entries())[0]
+      setIsDragging(true)
+      dragStart.current = { x: remaining[1].x - offset.x, y: remaining[1].y - offset.y }
+      initialPinch.current = null
+    }
+  }, [offset])
 
   const handleWheel = useCallback(
     (e: React.WheelEvent) => {
       const newScale = Math.max(0.3, Math.min(2.5, scale - e.deltaY * 0.001))
       setScale(newScale)
       // Re-clamp the offset so it never exceeds the bounds of the new scale
-      const limitX = (dims.w / 2) * newScale
-      const limitY = (dims.h / 2) * newScale
+      const limitX = Math.max(dims.w / 2, 800) * newScale
+      const limitY = Math.max(dims.h / 2, 500) * newScale
       setOffset((prev) => ({
         x: Math.max(-limitX, Math.min(limitX, prev.x)),
         y: Math.max(-limitY, Math.min(limitY, prev.y)),

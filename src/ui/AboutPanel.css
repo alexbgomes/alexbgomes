@@ -179,23 +179,3 @@ a.about-btn:active {
 a.about-btn:hover .about-btn-label {
   color: var(--gold-light);
 }
-
-/* --- Responsive --- */
-
-@media (max-width: 600px) {
-  .about-panel {
-    max-height: 85vh;
-  }
-
-  .about-header {
-    padding: 24px 20px 0;
-  }
-
-  .about-content {
-    padding: 20px 24px;
-  }
-
-  .about-panel h1 {
-    font-size: 1.4rem;
-  }
-}

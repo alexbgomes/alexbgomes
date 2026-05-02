@@ -98,6 +98,7 @@
   overflow: hidden;
   min-height: 0;
   contain: layout style;
+  touch-action: none;
 }
 
 .skill-tree-canvas:active {
@@ -171,25 +172,5 @@
   100% {
     transform: translateY(-200px) scale(0.5);
     opacity: 0;
-  }
-}
-
-/* --- Responsive --- */
-
-@media (max-width: 600px) {
-  .skill-tree-tabs {
-    gap: 16px;
-    padding: 12px 0 6px;
-  }
-
-  .skill-tree-tab {
-    font-size: 0.9rem;
-    padding: 6px 12px;
-  }
-
-  .skill-tree-stats {
-    flex-wrap: wrap;
-    gap: 12px 20px;
-    font-size: 0.72rem;
   }
 }

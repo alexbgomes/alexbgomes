@@ -17,6 +17,58 @@
   --node-root: #d4a54a;
   --font-heading: 'Cinzel', serif;
   --font-body: 'Inter', -apple-system, sans-serif;
+
+  /* Dynamically scale UI down for smaller viewports, capping at 1.0 for 1080p. */
+  --ui-scale: 1;
+}
+
+/* Use media queries to provide a valid unitless number for scale/zoom */
+@media (max-width: 1600px),
+(max-height: 900px) {
+  :root {
+    --ui-scale: 0.85;
+  }
+}
+
+@media (max-width: 1366px),
+(max-height: 768px) {
+  :root {
+    --ui-scale: 0.75;
+  }
+}
+
+@media (max-width: 1024px),
+(max-height: 600px) {
+  :root {
+    --ui-scale: 0.65;
+  }
+}
+
+@media (max-width: 850px),
+(max-height: 450px) {
+  :root {
+    --ui-scale: 0.55;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --ui-scale: 0.45;
+  }
+}
+
+@media (max-width: 400px) {
+  :root {
+    --ui-scale: 0.4;
+  }
+}
+
+.hud,
+.skill-tree-overlay,
+.about-overlay {
+  zoom: var(--ui-scale);
+  max-width: calc(100vh * 21 / 9 / var(--ui-scale));
+  margin: 0 auto;
 }
 
 *,

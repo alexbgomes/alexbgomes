@@ -330,33 +330,3 @@
 .hud-btn:hover .hud-btn-label {
   color: var(--gold-light);
 }
-
-/* --- Responsive --- */
-
-@media (max-width: 600px) {
-  .hud-nameplate {
-    top: 12px;
-    left: 12px;
-    padding: 10px 14px;
-  }
-
-  .hud-mute-island {
-    top: 12px;
-    right: 12px;
-    padding: 4px;
-  }
-
-  .hud-name {
-    font-size: 1rem;
-  }
-
-  .hud-action-bar {
-    bottom: 16px;
-    padding: 8px 10px;
-    gap: 4px;
-  }
-
-  .hud-btn {
-    padding: 8px 14px;
-  }
-}

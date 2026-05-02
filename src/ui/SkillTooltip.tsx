@@ -35,17 +35,26 @@ export default function SkillTooltip() {
         tooltipHeight = tooltipRef.current.offsetHeight
       }
 
-      let left = e.clientX + 16
-      let top = e.clientY + 16
+      const rootScale = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--ui-scale')) || 1
+      
+      let left = (e.clientX / rootScale) + 16
+      let top = (e.clientY / rootScale) + 16
+
+      const zoomedInnerWidth = window.innerWidth / rootScale
+      const zoomedInnerHeight = window.innerHeight / rootScale
 
       // Shift left if it overflows the right edge of the window
-      if (left + tooltipWidth > window.innerWidth) {
-        left = e.clientX - tooltipWidth - 16
+      if (left + tooltipWidth > zoomedInnerWidth) {
+        left = zoomedInnerWidth - tooltipWidth - 16
       }
       // Shift up if it overflows the bottom edge of the window
-      if (top + tooltipHeight > window.innerHeight) {
-        top = e.clientY - tooltipHeight - 16
+      if (top + tooltipHeight > zoomedInnerHeight) {
+        top = zoomedInnerHeight - tooltipHeight - 16
       }
+
+      // Ensure it doesn't go off the left/top edges
+      left = Math.max(16, left)
+      top = Math.max(16, top)
 
       tooltipRef.current.style.left = `${left}px`
       tooltipRef.current.style.top = `${top}px`

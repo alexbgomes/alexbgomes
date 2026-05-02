@@ -10,8 +10,15 @@ export default function BGM() {
   useEffect(() => {
     if (isLoaded && audioRef.current) {
       audioRef.current.volume = 0.3
+      if (!isMuted) {
+        audioRef.current.play().catch(() => {
+          // Play prevented
+        })
+      } else {
+        audioRef.current.pause()
+      }
     }
-  }, [isLoaded])
+  }, [isLoaded, isMuted])
 
   return (
     <audio ref={audioRef} src="/audio/bgm.mp3" loop muted={isMuted} />
