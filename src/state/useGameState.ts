@@ -16,6 +16,7 @@ interface GameState {
   doorPosition: [number, number, number]
   isMuted: boolean
   isMobile: boolean
+  isTransitioning: boolean
   outlineMeshes: Mesh[]
 
   setView: (view: ViewState) => void
@@ -27,6 +28,7 @@ interface GameState {
   setCameraLookAt: (lookAt: [number, number, number]) => void
   setIsMuted: (isMuted: boolean) => void
   setIsMobile: (isMobile: boolean) => void
+  setIsTransitioning: (isTransitioning: boolean) => void
   addOutlineMesh: (mesh: Mesh) => void
   removeOutlineMesh: (mesh: Mesh) => void
 }
@@ -46,8 +48,9 @@ export const useGameState = create<GameState>((set) => ({
 
   isMuted: true,
   isMobile: isInitialMobile,
+  isTransitioning: false,
 
-  setView: (view) => set({ view }),
+  setView: (view) => set({ view, isTransitioning: true }),
   setLoaded: (isLoaded) => set({ isLoaded }),
   setLoadingProgress: (loadingProgress) => set({ loadingProgress }),
   setActiveSkillTab: (activeSkillTab) => set({ activeSkillTab }),
@@ -56,6 +59,7 @@ export const useGameState = create<GameState>((set) => ({
   setCameraLookAt: (cameraLookAt) => set({ cameraLookAt }),
   setIsMuted: (isMuted) => set({ isMuted }),
   setIsMobile: (isMobile) => set({ isMobile }),
+  setIsTransitioning: (isTransitioning) => set({ isTransitioning }),
   addOutlineMesh: (mesh) => set((s) => ({ outlineMeshes: [...s.outlineMeshes, mesh] })),
   removeOutlineMesh: (mesh) => set((s) => ({ outlineMeshes: s.outlineMeshes.filter((m) => m !== mesh) })),
 }))

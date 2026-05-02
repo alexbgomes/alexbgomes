@@ -18,12 +18,15 @@ export default function CameraController() {
   const view = useGameState((s) => s.view)
   const setView = useGameState((s) => s.setView)
   const isMobile = useGameState((s) => s.isMobile)
+  const isTransitioning = useGameState((s) => s.isTransitioning)
+  const setIsTransitioning = useGameState((s) => s.setIsTransitioning)
 
   // Persistent vectors to avoid GC pressure inside useFrame
   const targetPos = useRef(new Vector3())
   const targetLook = useRef(new Vector3())
   const currentLook = useRef(new Vector3(0, 1, 0))
   const hasOpenedMailto = useRef(false)
+  const firstFrame = useRef(true)
 
   const openMailto = useCallback(() => {
     const a = document.createElement('a')
@@ -83,9 +86,24 @@ export default function CameraController() {
       }
     }
 
-    camera.position.lerp(targetPos.current, 0.03)
-    currentLook.current.lerp(targetLook.current, 0.03)
-    camera.lookAt(currentLook.current)
+    if (firstFrame.current) {
+      camera.position.copy(targetPos.current)
+      currentLook.current.copy(targetLook.current)
+      camera.lookAt(currentLook.current)
+      firstFrame.current = false
+    } else {
+      camera.position.lerp(targetPos.current, 0.045)
+      currentLook.current.lerp(targetLook.current, 0.045)
+      camera.lookAt(currentLook.current)
+    }
+
+    if (isTransitioning) {
+      const distPos = camera.position.distanceTo(targetPos.current)
+      const distLook = currentLook.current.distanceTo(targetLook.current)
+      if (distPos < 0.05 && distLook < 0.05) {
+        setIsTransitioning(false)
+      }
+    }
   })
 
   return null
