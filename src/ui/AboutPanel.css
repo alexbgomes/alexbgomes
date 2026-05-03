@@ -31,24 +31,43 @@
   position: relative;
 }
 
+.about-content-wrapper {
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+  overflow: hidden;
+  min-height: 0;
+}
+
 .about-content {
   flex-grow: 1;
   overflow-y: auto;
   padding: 24px 40px 36px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-/* Scrollbar */
 .about-content::-webkit-scrollbar {
+  display: none;
+}
+
+.custom-scrollbar-track {
+  position: absolute;
+  top: 16px;
+  right: 6px;
+  bottom: 36px;
   width: 5px;
-}
-
-.about-content::-webkit-scrollbar-track {
   background: transparent;
+  z-index: 10;
+  cursor: url('/cursors/hand.png') 8 5, pointer;
 }
 
-.about-content::-webkit-scrollbar-thumb {
-  background: var(--gold-dim);
-  border-radius: 3px;
+.custom-scrollbar-thumb {
+  width: 100%;
+  background: var(--text-primary);
+  border: 5px transparent var(--gold-dim);
+  cursor: url('/cursors/hand.png') 8 5, pointer;
+  touch-action: none;
 }
 
 /* Close */
