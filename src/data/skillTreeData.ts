@@ -132,7 +132,7 @@ export const skillTrees: SkillTreeTab[] = [
           {
             id: 'python',
             label: 'Python',
-            description: 'Whitespace matters. Snakes are optional.\n\nSpell: "Import pnp-solver". Instantly solves complex algorithmic challenges with readable syntax.',
+            description: 'Whitespace matters. Snakes are optional.\n\nSpell: "from PEqualsNP import Solver". Instantly solves complex algorithmic challenges with readable syntax.',
             icon: '/icons/python.png',
             type: 'skill',
             children: [],
@@ -140,7 +140,7 @@ export const skillTrees: SkillTreeTab[] = [
           {
             id: 'java',
             label: 'Java',
-            description: 'Write once, run everywhere. Wait everywhere.\n\nPassive Buff: High enterprise armor. Grants "Garbage Collection" regeneration.',
+            description: 'Write once, run everywhere. Wait everywhere.\n\nPassive Buff: High enterprise armor. Grants "Garbage Collection" regeneration. <grey-note>Coding in Java while sipping a cup of java on the island of Java, Indonesia!</grey-note>',
             icon: '/icons/java.png',
             type: 'skill',
             children: [],
@@ -328,7 +328,7 @@ export const skillTrees: SkillTreeTab[] = [
           {
             id: 'games',
             label: 'Gaming',
-            description: 'Appreciator of all games.\n\nPassive Buff: +20 Happiness when playing games. \n\nFavourites: Warframe, Elden Ring, The Witcher 3, Monster Hunter, Factorio. <red-warning>Do not ask about how many hours have been played on Warframe.</red-warning>',
+            description: 'Appreciator of all games.\n\nPassive Buff: +20 Happiness when playing games. \n\nFavourites: Warframe, Elden Ring, The Witcher 3, Monster Hunter, Factorio. <red-warning>Do not ask how many hours have been played on any of these.</red-warning>',
             icon: '/icons/gaming.png',
             type: 'skill',
             children: [],
